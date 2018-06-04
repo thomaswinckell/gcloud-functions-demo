@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser')();
 const cors = require('cors')({origin: true});
 const app = express();
@@ -49,10 +50,30 @@ const validateFirebaseIdToken = (req, res, next) => {
 
 app.use(cors);
 app.use(cookieParser);
+app.use(fileUpload({
+    limits: { fileSize: 10 * 1024 * 1024 },
+}));
 app.use(validateFirebaseIdToken);
 
-app.get('/hello', (req, res) => {
-    res.send(`Hello ${req.user.name}`);
+app.post('/upload', function(req, res) {
+
+    if (!req.files || !req.files.track) {
+        return res.status(400);
+    }
+
+    let track = req.files.track;
+
+    console.log(track);
+
+    // Use the mv() method to place the file somewhere on your server
+    /*track.mv('/somewhere/on/your/server/filename.jpg', function(err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.send('File uploaded!');
+    });*/
+    return res.status(200).send({});
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import firebase from 'firebase';
 
 class Login extends Component {
@@ -85,7 +84,6 @@ class Login extends Component {
                 const isAnonymous = user.isAnonymous;
                 const uid = user.uid;
                 const providerData = user.providerData;*/
-
             }
 
             this.setState({user, signedInDisabled: false});
@@ -93,9 +91,8 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.state);
         if(this.state.user) {
-            return this.props.children;
+            return this.props.render(this.state.user);
         } else {
             return (
                 <div>

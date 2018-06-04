@@ -4,7 +4,6 @@
 
 # Node
 node_modules
-npm-debug.log
 
 # Sass
 .sass-cache
@@ -12,3 +11,6 @@ npm-debug.log
 # Build
 .tmp
 build
+
+# Logs
+*.log

@@ -2,8 +2,9 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
+    "clean": "rm -rf node_modules && rm -rf **/**/node_modules",
+    "postinstall": "cd ./playground && npm i && cd ../functions && npm i && cd ../client && npm i && cd ..",
     "deploy": "firebase deploy"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
