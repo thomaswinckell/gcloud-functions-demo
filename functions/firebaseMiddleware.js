@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 // The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
 // `Authorization: Bearer <Firebase ID Token>`.
 // when decoded successfully, the ID Token content will be added as `req.user`.
-module.exports.validateFirebaseIdToken = (req, res, next) => {
+exports.validateFirebaseIdToken = (req, res, next) => {
     console.log('Check if request is authorized with Firebase ID token');
 
     if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&

@@ -1,40 +1,46 @@
-const admin = require('firebase-admin');
-const os = require('os');
 const path = require('path');
-const {generateUuid} = require('./utils');
+const os = require('os');
+const admin = require('firebase-admin');
+const {tracksBucket} = require('./config');
 
-module.exports.upload = function(req, res) {
+exports.upload = function(req, res) {
 
-    if (!req.files || !req.files.track) {
-        return res.status(400);
+    console.log('upload');
+
+    if (!req.file) {
+        console.log('bad');
+        console.log('file:' + req.file);
+        return res.status(400).json({});
     }
 
-    const trackFile = req.files.track;
+    console.log('ok')
+    const trackFile = req.file;
 
-    const uuid = generateUuid();
+    console.log('uuid')
+    const uuid = req.file.uuid;
+    console.log('uuid generated')
     const tmpFilePath = path.join(os.tmpdir(), './track-' + uuid + '.mp3');
 
-    trackFile.mv(tmpFilePath, function(err) {
+    console.log('move to tmp')
 
-        if (err) {
-            console.log(err);
-            res.status(500);
-            throw err;
-        }
+    const data = {
+        uuid: uuid,
+        originalName: trackFile.originalname,
+    };
 
-        admin.storage().bucket('functions-demo-206213-tracks').upload(tmpFilePath, {
-            destination: uuid + '.mp3',
-            metadata: {
-                uuid: uuid,
-                originalName: trackFile.name,
-            },
-        }).then(() => {
-            res.json({
-                uuid: uuid,
-                originalName: trackFile.name,
-            });
-        }).catch(err => {
-            console.log(err);
-        })
-    });
+    console.log('move to storage')
+
+    return admin.storage().bucket(tracksBucket).upload(tmpFilePath, {
+        destination: uuid + '.mp3',
+        metadata: {
+            uuid: uuid,
+            originalName: trackFile.originalname,
+        },
+    }).then(() => {
+        console.log('push to firebase');
+        res.json(data);
+        return admin.database().ref('/tracks/' + uuid).set(data);
+    }).catch(err => {
+        console.log(err);
+    })
 };

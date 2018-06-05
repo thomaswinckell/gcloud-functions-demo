@@ -22,12 +22,15 @@ class UploadForm extends Component {
 
             firebase.auth().currentUser.getIdToken(true).then((idToken) => {
 
-                fetch('http://localhost:5000/functions-demo-206213/us-central1/app/upload', {
+                const url = 'http://localhost:5000/functions-demo-206213/us-central1/app/upload';
+                //const url = 'https://us-central1-functions-demo-206213.cloudfunctions.net/app/upload/';
+
+                fetch(url, {
                     method: 'POST',
                     body: data,
                     headers: {
-                        'Accept': 'application/json',
                         'Authorization': 'Bearer ' + idToken,
+                        'Accept': 'application/json',
                     },
                 }).then(r => r.json()).then(() => {
                     this.setState({uploading: false});

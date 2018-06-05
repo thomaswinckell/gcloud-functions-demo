@@ -2,20 +2,21 @@ var acoustid = require("acoustid");
 
 
 acoustid("/Users/thomaswinckell/Desktop/test.mp3", {
-    key: "NFqOeSUerAg",
+    key: "REPLACE_ME",
     fpcalc: {
         command: "./fpcalc"
     },
-}, callback);
+}, function (err, results) {
 
+    if (err) {
+        throw err;
+    }
 
-function callback(err, results) {
-    if (err) throw err;
     const recording = results[0].recordings[0];
     const artists = recording.artists;
-    const release = recording.releasegroups[0];
-    //console.log(recording);
-    console.log(release.releases[0].mediums[0].tracks);
+    const releaseGroup = recording.releasegroups[0];
+    const release = releaseGroup.releases[0];
+    const year = release.date.year;
 
     const model = {
         artists: artists,
@@ -24,10 +25,13 @@ function callback(err, results) {
         title: recording.title,
         release: {
             title: release.title,
-            type: release.type,
+            type: releaseGroup.type,
+            year: year,
         },
     };
 
     console.log('\n\n\nMODEL :\n\n\n');
     console.log(model);
-}
+});
+
+

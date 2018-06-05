@@ -91,6 +91,7 @@ class Login extends Component {
     }
 
     render() {
+        console.log(this.state.user);
         if(this.state.user) {
             return this.props.render(this.state.user);
         } else {

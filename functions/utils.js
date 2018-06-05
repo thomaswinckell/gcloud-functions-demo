@@ -1,2 +1,2 @@
 
-module.exports.generateUuid = require('uuid/v4');
+exports.generateUuid = require('uuid/v4');
