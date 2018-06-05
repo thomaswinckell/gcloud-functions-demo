@@ -62,6 +62,11 @@ export default class Tracks extends Component {
                         Year : {track.release.year}
                     </div>
                 )}
+                {track.error && (
+                    <div>
+                        Error : {track.error}
+                    </div>
+                )}
                 <button onClick={() => this.setState({trackToPlay: track})}>Play</button>
             </li>
         )
