@@ -1,0 +1,73 @@
+<section>
+    <h3>Authentication</h3>
+    <ul>
+        <li>Setup in Firebase (UI)</li>
+        <li>Express middleware that validate the token using :</li>
+<pre><code class="language-js">admin.auth().verifyIdToken('TOKEN')</code></pre>
+    </ul>
+</section>
+
+<section>
+    <h3>Firebase event</h3>
+    <ul>
+        <li>Firebase is a JSON database</li>
+        <li>Maintain a length property</li>
+<pre style=""><code class="language-js" style="font-size: 15px;">exports.lengthInc = functions.database.ref('/my-object/{key}').onCreate(snap => {
+    if(snap.ref.parent) {
+        return snap.ref.parent.child('length').transaction(l => (l || 0) + 1);
+    }
+});
+
+exports.lengthDec = functions.database.ref('/my-object/{key}').onDelete(snap => {
+    if(snap.ref.parent) {
+        return snap.ref.parent.child('length').transaction(l => (l || 0) + 1);
+    }
+});</code></pre>
+    </ul>
+</section>
+
+
+<section>
+    <h3>Firebase messaging</h3>
+    <ul>
+        <li>Send push notifications with FCM</li>
+<pre style=""><code class="language-js" style="font-size: 15px;">exports.notifications = functions.database.ref('/notifications/{notificationId}').onCreate(snapshot => {
+    const notification = snapshot.val();
+    return admin.messaging().send({
+        title: notification.title,
+        body: notification.body
+        // ...
+    })
+});</code></pre></li>
+    </ul>
+</section>
+
+<section>
+    <h3>Cloud storage</h3>
+    <ul>
+        <li>On file uploaded, get metadata and push them to firebase</li>
+<pre style=""><code class="language-js" style="font-size: 15px;">exports.getMetadataOnUpload = functions.storage.bucket('MY_BUCKET').object().onFinalize(object => {
+    const tempLocalFile = path.join(os.tmpdir(), object.name);
+    // download file
+    return admin.storage().bucket(object.bucket).file(object.name).download({destination: tempLocalFile}).then(() => {
+        // Call API to resolve metadata
+
+        // Save data in firebase
+        return admin.database().ref('/files/' + object.name).set({
+            name: object.name,
+            // ...metadata
+        });
+    });
+});</code></pre>
+    </ul>
+</section>
+
+<section>
+    <h3>Cloud storage</h3>
+    <ul>
+        <li>Streaming from cloud storage</li>
+<pre style=""><code class="language-js" style="font-size: 15px;">exports.trackStream = function(req, res) {
+    return admin.storage().bucket('MY_BUCKET').file('my-song.mp3').createReadStream().pipe(res);
+};</code></pre>
+    </ul>
+</section>

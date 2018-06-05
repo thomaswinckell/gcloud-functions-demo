@@ -11,8 +11,7 @@ export default class Tracks extends Component {
 
     componentDidMount() {
         firebase.database().ref('/tracks').on('value', snapshot => {
-            const data = snapshot.val();
-            console.log('data');
+            const data = snapshot.val() || {};
             const tracks = Object.keys(data).reduce((acc, curr) => [...acc, data[curr]], []);
             this.setState({tracks});
         })
@@ -31,12 +30,40 @@ export default class Tracks extends Component {
         );
     }
 
+    renderArtists(track) {
+        if(track.artists && track.artists.length > 0) {
+            return (
+                <div>
+                    Artists : {track.artists.map(a => a.name).join(', ')}
+                </div>
+            )
+        }
+    }
+
     renderTrack(track) {
         return (
-            <div key={track.uuid}>
-                UUID : {track.uuid}
+            <li key={track.uuid} className="list-group-item">
+                <div>
+                    Original name : {track.originalName}
+                </div>
+                {track.title && (
+                    <div>
+                        Title : {track.title}
+                    </div>
+                )}
+                {this.renderArtists(track)}
+                {track.release && (
+                    <div>
+                        Album : {track.release.title}
+                    </div>
+                )}
+                {track.release && (
+                    <div>
+                        Year : {track.release.year}
+                    </div>
+                )}
                 <button onClick={() => this.setState({trackToPlay: track})}>Play</button>
-            </div>
+            </li>
         )
     }
 
@@ -44,7 +71,9 @@ export default class Tracks extends Component {
         return (
             <div>
                 {this.renderPlayer()}
-                {this.state.tracks.map(t => this.renderTrack(t))}
+                <ul className="list-group">
+                    {this.state.tracks.map(t => this.renderTrack(t))}
+                </ul>
             </div>
         )
     }

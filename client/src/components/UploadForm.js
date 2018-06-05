@@ -44,7 +44,7 @@ class UploadForm extends Component {
 
     render() {
         return (
-            <form onSubmit={e => e.preventDefault()}>
+            <form onSubmit={e => e.preventDefault()} style={{'margin-top': '2em'}}>
                 <div className="file btn btn-lg btn-primary file-upload-btn">
                     {this.state.uploading ? 'Uploading...' : 'Upload a track' }
                     {this.state.uploading ? null : <input type="file" name="track" onChange={ (e) => this.upload(e.target.files) }/> }

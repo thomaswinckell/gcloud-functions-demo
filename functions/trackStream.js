@@ -9,7 +9,5 @@ exports.trackStream = function(req, res) {
     console.log('trackStream');
     console.log(uuid);
 
-    const blob = admin.storage().bucket(tracksBucket).file(uuid + '.mp3');
-
-    blob.createReadStream().pipe(res);
+    return admin.storage().bucket(tracksBucket).file(uuid + '.mp3').createReadStream().pipe(res);
 };

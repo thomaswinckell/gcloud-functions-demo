@@ -1,0 +1,29 @@
+<section>
+    <h3>A function</h3>
+    <ul>
+        <li>JavaScript</li>
+        <li>Express.JS handler (or module)</li>
+        <li>Compatible with public and private NPM packages</li>
+<pre><code class="language-js">exports.hello = (req, res) => {
+    res.send(`Hello World!`);
+}</code></pre>
+    </ul>
+</section>
+
+<section>
+    <h3>Deploy a function</h3>
+    <ul style="width: 1000px !important;">
+<pre><code>gcloud functions deploy func-name --trigger-http
+curl https://region-projectId.cloudfunctions.net/func-name
+</code></pre>
+    </ul>
+</section>
+
+<section>
+    <h3>Function settings</h3>
+    <ul>
+        <li>Possibility to set the region where the function will be deployed</li>
+        <li>Possibility to set the memory allocated to the function (default : 256mb)</li>
+        <li>Possibility to set the timeout of the function (default : 60s)</li>
+    </ul>
+</section>

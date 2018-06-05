@@ -8,10 +8,10 @@ class App extends Component {
     render() {
         return (
             <Login render={user => (
-                <div>
+                <div style={{'max-width': '40em', 'margin': 'auto'}}>
                     <UploadForm user={user}/>
 
-                    <h3>List of tracks</h3>
+                    <h3 style={{'margin-top': '2em'}}>Tracks</h3>
 
                     <Tracks/>
                 </div>

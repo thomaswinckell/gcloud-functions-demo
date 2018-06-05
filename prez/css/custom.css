@@ -1,0 +1,104 @@
+svg {
+	width: 64px;
+	height: 64px;
+}
+
+svg.pwa-logo, svg.react-logo  {
+	width: 200px;
+	height: 90px;
+}
+
+.reveal div.progress-icon {
+	display: inline-flex;
+}
+
+div.webpack-logo img {
+	width: 200px;
+	height: 139px;
+	border: none;
+	box-shadow: none;
+	margin-left: 0;
+}
+
+.reveal div.logo-row, .reveal td.logo-row {
+	display: inline-flex;
+}
+
+.reveal div.logo-row div * {
+	margin: 30px;
+}
+
+.reveal table th, .reveal table td {
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: none;
+}
+
+.reveal tr .icon-row {
+	padding-top: 1em;
+}
+
+.reveal tr .text-row {
+	padding-top: 0;
+}
+
+.reveal blockquote {
+	width: 100%;
+}
+
+.reveal blockquote .author-name {
+	text-align: right;
+}
+
+div .source {
+	font-size: 12px;
+}
+
+.inline {
+	display: inline !important;
+}
+
+.reveal section ul {
+	list-style-type: circle;
+}
+
+.reveal section li {
+	margin: 0 0 0.5rem 0;
+}
+
+.reveal section h3,
+.reveal section h4 {
+	margin: 0 0 1rem 0;
+	color: #0469D9;
+}
+
+.reveal section h4 {
+	text-transform: none;
+}
+
+.reveal section strong {
+	color: #0469D9;
+	font-weight: normal;
+}
+
+.reveal pre.fullscreen {
+	margin-top: -20px;
+}
+
+.reveal pre.fullscreen code {
+	max-height: 570px;
+}
+
+ul.links li {
+	font-size: 30px !important;
+}
+
+.reveal table{
+	padding-bottom: 30px;
+}
+
+.reveal section img {
+	border: none !important;
+	box-shadow: none !important;
+}

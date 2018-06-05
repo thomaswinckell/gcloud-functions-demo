@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="js/prism.js"></script>
+
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section w3-include-html="slides/first.html"></section>
+        <section w3-include-html="slides/what.html"></section>
+        <section w3-include-html="slides/function.html"></section>
+        <section w3-include-html="slides/environment.html"></section>
+        <section w3-include-html="slides/test.html"></section>
+        <section w3-include-html="slides/monitoring.html"></section>
+        <section w3-include-html="slides/firebase.html"></section>
+        <section w3-include-html="slides/use-cases.html"></section>
+        <section w3-include-html="slides/demo.html"></section>
+        <section w3-include-html="slides/quotas.html"></section>
+        <section w3-include-html="slides/pricing.html"></section>
+        <section w3-include-html="slides/conclusion.html"></section>
+    </div>
+</div>
+
+
+<script>
+    window.w3.includeHTML();
+    Reveal.initialize();
+    Reveal.addEventListener( 'slidechanged', function( event ) {
+        Prism.highlightAll();
+    } );
+</script>
+
+</body>
+</html>
